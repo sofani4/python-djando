@@ -1,0 +1,13 @@
+{% extends "layout/basic.html" %}
+
+{% block title %}Профиль пользователя{% endblock %}
+
+{% block content %}<center>
+<br><h2>Здравствуйте, {{ user.username }}!</h2>
+
+<br><div class="dropdown-divider"></div><br>
+<h2><a href="{% url 'main:costs_add' %}">Добавить расходы</a></h2><br>
+    <h2><a href="{% url 'main:income_add' %}">Добавить доходы</a></h2><br>
+    <div class="dropdown-divider"></div></center><br>
+    <h2>Остаток средств на сегодня:<strong> {{ remainder }} рублей</strong></h2>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+
+
+<style type="text/css">table {width: 100%;}</style>
+<br>
+<center><h1>Анализ расходов и доходов</h1><br><hr>
+
+<h3>Выберете диапазон дат:</h3><br>
+{% include "main/analysis_form.html" %}</center><br><hr>
+
+<center><h2>Остаток средств на сегодня:<strong> {{ remainder }} рублей</strong> </h2></center>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+
+<style type="text/css">table {width: 100%;}</style>
+
+    <h1><center>Доходы</center></h1>
+{% include "main/income_search_form.html" %}<br>
+    <h3><center>По Вашему запросу "<strong>{{ query }}</strong>" найдено:</center></h3><br>
+
+{% if titles %}
+<table class="table">
+    <thead class="thead-default">
+        <tr>
+            <th>Категория</th>
+            <th>Комментарий</th>
+            <th>Сумма</th>
+            <th>Дата</th>
+        </tr><br>
+    </thead>
+        {% for i in titles %}
+        <tr>
+            <th>{{ i.content }}</th>
+            <th>{{ i.title }}</th>
+            <th>{{ i.price }}</th>
+            <th>{{ i.created_at }}</th>
+        </tr>
+        {% endfor %}
+</table>
+
+{% else %}
+     <h3><center>Нет записей, удовлетворяющих Вашему поиску.</center></h3>
+{% endif %}
+<br><div class="dropdown-divider"></div>
+<h4><center><a href="{% url 'main:income' %}">Вернуться к доходам</a></center></h4>
+
+{% endblock %}

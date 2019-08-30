@@ -1,0 +1,131 @@
+{% extends "layout/basic.html" %}
+{% block content %}
+
+<style type="text/css">
+    table {width: 100%;}
+    table-layout{fixed;}
+    .descr { visibility: hidden; }
+</style>
+
+<center><h1>Анализ расходов и доходов</h1><hr>
+<h4>Выберете диапазон дат для поиска:</h4>
+
+{% include "main/analysis_form.html" %}<hr>
+<h5>Выбранный диапазон дат: <strong>{{ start_date }} - {{ end_date }}</strong></h5></center>
+
+
+<style> #chartdiv {  width: 100%;  height: 500px;} </style>
+
+<script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+<script src="https://www.amcharts.com/lib/4/core.js"></script>
+<script src="https://www.amcharts.com/lib/4/charts.js"></script>
+<script src="https://www.amcharts.com/lib/4/themes/animated.js"></script>
+<script>
+am4core.ready(function() {
+
+am4core.useTheme(am4themes_animated);
+
+var chart = am4core.create("chartdiv", am4charts.PieChart3D);
+chart.hiddenState.properties.opacity = 0;
+chart.legend = new am4charts.Legend();
+
+    var bezK = $("#bezK").attr("data");
+    var komYsl = $("#komYsl").attr("data");
+    var prodP = $("#prodP").attr("data");
+    var tovDD = $("#tovDD").attr("data");
+    var OOA = $("#OOA").attr("data");
+    var obraz = $("#obraz").attr("data");
+    var lekMed = $("#lekMed").attr("data");
+    var avtT = $("#avtT").attr("data");
+    var razv = $("#razv").attr("data");
+    var xobbi = $("#xobbi").attr("data");
+    var lichT = $("#lichT").attr("data");
+
+chart.data = [
+  {    category: "Без категории",    litres: bezK  },
+  {    category: "Комунальные услуги",    litres: komYsl },
+  {    category: "Продуктовые покупки",    litres: prodP  },
+  {    category: "Товары для дома",    litres: tovDD  },
+  {    category: "Одежда, обувь, аксессуары",    litres: OOA },
+  {    category: "Образование",    litres: obraz  },
+  {    category: "Лекарства и медицина",    litres: lekMed },
+  {    category: "Автомобиль/транспорт",    litres: avtT },
+  {    category: "Развлечения",    litres: razv  },
+  {    category: "Хобби",    litres: xobbi  },
+  {    category: "Личные траты",    litres: lichT  }
+];
+
+var series = chart.series.push(new am4charts.PieSeries3D());
+series.dataFields.value = "litres";
+series.dataFields.category = "category";
+});
+</script><hr>
+<script>
+am4core.ready(function() {
+var chart = am4core.create("chartdiv1", am4charts.PieChart3D);
+chart.hiddenState.properties.opacity = 0;
+chart.legend = new am4charts.Legend();
+
+    var drug = $("#drug").attr("data");
+    var avans = $("#avans").attr("data");
+    var zp = $("#zp").attr("data");
+    var sozV = $("#sozV").attr("data");
+
+
+chart.data = [
+  {    category: "Другое",    litres: drug },
+  {    category: "Аванс",    litres: avans },
+  {    category: "Зарплата",    litres: zp  },
+  {    category: "Социальные выплаты",    litres: sozV  }
+];
+
+var series = chart.series.push(new am4charts.PieSeries3D());
+series.dataFields.value = "litres";
+series.dataFields.category = "category";
+});
+</script><center>
+<th>Расходов: {{ Cs_sum.price__sum }} руб.</th>
+<th>Доходов: {{ Im_sum.price__sum }} руб.</th></center>
+<hr>
+
+<table border="2" class="descr">
+{% if Cs %}
+    <tr><center>
+        <th>Расходы</th>
+        <th>Доходы</th>
+    </center></tr>
+<div id="chartdiv">
+        <th>
+            <span id="bezK" data="{{ Cs1.price__sum }}">Без категории: {{ Cs1.price__sum }} руб.</span><br>
+            <span id="komYsl" data="{{ Cs2.price__sum }}">Комунальные услуги: {{ Cs2.price__sum }} руб.</span><br>
+            <span id="prodP" data="{{ Cs3.price__sum }}">Продуктовые покупки: {{ Cs3.price__sum }} руб.</span><br>
+            <span id="tovDD" data="{{ Cs4.price__sum }}">Товары для дома: {{ Cs4.price__sum }} руб.</span><br>
+            <span id="OOA" data="{{ Cs5.price__sum }}">Одежда, обувь, аксессуары:{{ Cs5.price__sum }} руб.</span><br>
+            <span id="obraz" data="{{ Cs6.price__sum }}">Образование: {{ Cs6.price__sum }} руб.</span><br>
+            <span id="lekMed" data="{{ Cs7.price__sum }}">Лекарства и медицина:{{ Cs7.price__sum }} руб.</span><br>
+            <span id="avtT" data="{{ Cs8.price__sum }}"> Автомобиль/транспорт:{{ Cs8.price__sum }} руб.</span><br>
+            <span id="razv" data="{{ Cs9.price__sum }}">Развлечения: {{ Cs9.price__sum }} руб.</span><br>
+            <span id="xobbi" data="{{ Cs10.price__sum }}">Хобби: {{ Cs10.price__sum }} руб.</span><br>
+            <span id="lichT" data="{{ Cs11.price__sum }}">Личные траты: {{ Cs11.price__sum }} руб.</span><br>
+        </th>
+</div>
+<div id="chartdiv1">
+        <th>
+            <span id="drug" data="{{ Im1.price__sum }}">Другое: {{ Im1.price__sum}} руб.</span><br>
+            <span id="avans" data="{{ Im2.price__sum }}">Аванс: {{ Im2.price__sum}} руб.</span><br>
+            <span id="zp" data="{{ Im3.price__sum }}">Зарплата: {{ Im3.price__sum}} руб.</span><br>
+            <span id="sozV" data="{{ Im4.price__sum }}">Социальные выплаты: {{ Im4.price__sum}} руб.</span><br>
+        </th>
+    </tr>
+</div>
+    <tr>
+        <th>Итого расходов: {{ Cs_sum.price__sum }}</th>
+        <th>Итого доходов: {{ Im_sum.price__sum }} руб.</th>
+    </tr>
+</table>
+{% else %}
+    <p>Нет записей в заданном диапазоне дат.</p>
+{% endif %}
+
+<hr>
+{% endblock %}

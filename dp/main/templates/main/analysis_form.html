@@ -1,0 +1,10 @@
+{% block content %}
+
+<form action="/analysis_results/" method="get">
+    {% csrf_token %}
+    <input type="date" name="start_date">
+    <input type="date" name="end_date">
+    <input type="submit" value="Найти в диапазоне" />
+</form>
+
+{% endblock %}

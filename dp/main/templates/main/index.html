@@ -1,0 +1,20 @@
+{% extends "layout/basic.html" %}
+
+{% block content %}
+
+{% if user.is_authenticated %}<center>
+    <br><h2>Здравствуйте, {{ user.get_username }}!</h2>
+    <br><div class="dropdown-divider"></div><br>
+    <h2><a href="{% url 'main:costs_add' %}">Добавить расходы</a></h2><br>
+    <br><div class="dropdown-divider"></div><br>
+    <h2><a href="{% url 'main:income_add' %}">Добавить доходы</a></h2><br>
+
+
+{% else %}<center>
+    <br><h1>Добро пожаловать на сайт учета домашнего бюджета</h1><br>
+    <br> <h2>Выберете действие:</h2><br>
+        <h2><a href="{% url 'main:login' %}">Войти</a></h2>
+        <h2><a href="{% url 'main:register' %}">Зарегистрироваться</a></h2><br>
+</center> {% endif %}
+
+{% endblock %}
